@@ -1,10 +1,12 @@
 package com.kryukov.lab1;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.*;
+import android.view.KeyEvent;
+import android.widget.ListView;
 
 public class ListActivity extends AppCompatActivity {
     ListView list;
@@ -25,4 +27,18 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if (Build.VERSION.SDK_INT < 21) {
+                finishAffinity();
+            } else {
+                finishAndRemoveTask();
+            }
+
+            return false;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 }
